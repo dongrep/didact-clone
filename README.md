@@ -25,7 +25,7 @@ This project is a simplified reimplementation of React, inspired by the [Didact]
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/didact-clone.git
+   git clone git@github.com:dongrep/didact-clone.git
    cd didact-clone
    ```
 
@@ -35,7 +35,7 @@ This project is a simplified reimplementation of React, inspired by the [Didact]
    npm run dev
    ```
 
-3. Open the browser and go to `http://localhost:3000` (or whatever port your dev server uses).
+3. Open the browser and go to `http://localhost:5173` (or whatever port your dev server uses).
 
 ## Development Notes
 
