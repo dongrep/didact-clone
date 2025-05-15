@@ -1,4 +1,4 @@
-import React, { act } from "react";
+import React from "react";
 import { Dom, Fiber, Hook } from "./types";
 
 function createElement(type: any, props: any, ...children: any[]) {
@@ -7,7 +7,7 @@ function createElement(type: any, props: any, ...children: any[]) {
     props: {
       ...props,
       children: children.map((child) =>
-        typeof child === "object" ? child : createTextElement(child)
+        typeof child === "object" ? child : createTextElement(child),
       ),
     },
   };
@@ -35,11 +35,18 @@ function createDom(fiber: Fiber) {
   console.log("Creating DOM for:", fiber.type, fiber.props);
 
   const isProp = (key: string) => key != "children";
+  const isStyle = (key: string) => key == "style";
   Object.keys(fiber.props)
     .filter(isProp)
     .forEach((name) => {
       dom[name] = fiber.props[name];
     });
+
+  if (dom instanceof HTMLElement && !!fiber.props.style) {
+    Object.entries(fiber.props.style).forEach(([key, value]) => {
+      dom.style[key as any] = value as string;
+    });
+  }
 
   Object.keys(fiber.props)
     .filter(isEvent)
@@ -69,14 +76,14 @@ const isGone =
 function updateDom(
   dom: Dom,
   prevProps?: Record<string, any>,
-  nextProps?: Record<string, any>
+  nextProps?: Record<string, any>,
 ) {
   if (dom && prevProps && nextProps) {
     // Remove old or changed event listeners
     Object.keys(prevProps)
       .filter(isEvent)
       .filter(
-        (key: string) => !(key in nextProps) || isNew(prevProps, nextProps)
+        (key: string) => !(key in nextProps) || isNew(prevProps, nextProps),
       )
       .forEach((name) => {
         const eventName = name.toLowerCase().substring(2);
@@ -158,6 +165,7 @@ function render(element: React.JSX.Element, container: HTMLElement | null) {
     dom: container,
     parent: null,
     props: {
+      ...element.props,
       children: [element],
     },
     alternate: currentRoot,

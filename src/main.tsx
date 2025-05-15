@@ -6,7 +6,7 @@ function Counter() {
   const posts = ["post 1", "post 2", "post 3"];
   const [state, setState] = Didact.useState(1);
   return (
-    <div>
+    <div style={{ height: "40px", width: "50%", backgroundColor: "red" }}>
       <h1>Count: {state}</h1>
       <button onClick={() => setState((c: number) => c + 1)}>Add</button>
       {posts.map((post) => (
