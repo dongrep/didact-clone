@@ -35,7 +35,6 @@ function createDom(fiber: Fiber) {
   console.log("Creating DOM for:", fiber.type, fiber.props);
 
   const isProp = (key: string) => key != "children";
-  const isStyle = (key: string) => key == "style";
   Object.keys(fiber.props)
     .filter(isProp)
     .forEach((name) => {
@@ -112,6 +111,17 @@ function updateDom(
       .filter(isProperty)
       .filter(isNew(prevProps, nextProps))
       .forEach((name) => (dom[name] = nextProps[name]));
+
+    // Remove old styles and add new ones
+    if (dom instanceof HTMLElement && !!nextProps.style) {
+      Object.keys(prevProps.style).forEach((key) => {
+        delete dom.style[key as any];
+      });
+
+      Object.entries(nextProps.style).forEach(([key, value]) => {
+        dom.style[key as any] = value as string;
+      });
+    }
   }
 }
 
