@@ -1,4 +1,4 @@
-# Didact – A Minimal React-like Library
+# yarl (Yet Another React Library) – A Minimal React-like Library
 
 This project is a simplified reimplementation of React, inspired by the [Didact](https://pomb.us/build-your-own-react/) tutorial. It is designed to help understand how React works under the hood by rebuilding core concepts such as the fiber architecture, the reconciliation process, function components, hooks (like `useState`), and the commit phase.
 
@@ -25,7 +25,7 @@ This project is a simplified reimplementation of React, inspired by the [Didact]
 
 1. Clone the repository:
    ```bash
-   git clone git@github.com:dongrep/didact-clone.git
+   git clone git@github.com:dongrep/yarl.git
    cd didact-clone
    ```
 
